@@ -1,0 +1,235 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
+</head>
+  <body>
+{{> location_details}}
+{{> cuisines}}
+
+</body>
+
+<template name="categories">
+  <h3 class="page-header">Template Helper Examples</h3>
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <ul >
+        {{#each category in categories}}
+        <li>{{category.categories.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    </div>
+    </div>
+  </template>
+
+<template name="cities">
+  <h3 class="page-header">Cities Available</h3>
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <ul >
+        {{#each city in cities}}
+        <li>{{city.name}}</li>
+        <li>{{city.country_name}}</li>
+        {{/each}}
+      </ul>
+      <a href="https://b.zmtcdn.com/data/collections/bd21c655d3235173ce84b32293fec15b_1506085178.jpg">dnn</a>
+</div>
+</div>
+</div>
+</template>
+
+<template name="collections">
+  <br>
+
+      {{#if collections}}
+      <div class="container">
+        <div class="row">
+      {{#each collection in collections}}
+      <div class="col-md-3" style="padding: 5px;">
+      <div class="thumbnail" >
+          <a  style="color:dodgerblue;" href = '{{collection.collection.url}}'>{{collection.collection.title}}  </a><br>
+          <img src="{{collection.collection.image_url}}" alt="{{collection.collection.title}}"  style = 'width:100%; height:150px;'>
+            <p style='margin-bottom:2px; color:black;'>{{collection.collection.description}}</p>
+          </div>
+        </div>
+          {{/each}}
+        </div>
+        </div>
+          {{/if}}
+
+
+
+</template>
+
+
+<template name="cuisines">
+  <h3 class="page-header">Wide Range of Choices</h3>
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <ul >
+        {{#each cuisine in cuisines}}<!--objects cannot be printed directly-->
+        <li>{{cuisine.cuisine.cuisine_name}} with the id - {{cuisine.cuisine.cuisine_id}}</li>
+        {{/each}}
+      </ul>
+</div>
+</div>
+</div>
+</template>
+
+<template name="establishments">
+  <h3 class="page-header">Wide Range of Choices</h3>
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <ul >
+        {{#each establishment in establishments}}
+        <li>{{establishment.establishment.name}}</li>
+        {{/each}}
+      </ul>
+</div>
+</div>
+</div>
+</template>
+
+
+<template name="location">
+
+        <ul >
+        {{#each loco in location}}
+        <li>{{loco.title}}</li>
+        <li>{{loco.entity_type}}</li>
+        {{/each}}
+      </ul>
+</template>
+
+<template name="location_details">
+  {{> welcome}}
+  <h3 class="page-header">Know the  Food in your Neighborhood</h3>
+  <form id = 'location_form'>
+   <input type="text" name = 'location_name'  class="col-xs-6"  placeholder="Enter your location" value = '' ><span class="glyphicon glyphicon-search"></span>
+   <input type = 'submit' value = 'submit' class="btn btn-default">
+  </form>
+  {{> collections}}
+  {{#if location_details}}
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <h2>{{location_details.location.title}}</h2>
+        <h3>Popularity:</h3>
+        <p>The popularity index in your area is {{location_details.popularity}}</p>
+        <h3>Night Life:</h3>
+        <p>The Night Life Index in your area is {{location_details.nightlife_index}}</p>
+        <h3>Number of Restaurants: {{location_details.num_restaurant}}</h3>
+        <h3>Cuisnes:</h3>
+        {{#each cuisine in location_details.top_cuisines}}
+        <ul>
+        <li>{{cuisine}}</li>
+        </ul>
+        {{/each}}
+        <h3>Popular Restaurants: {{location_details.best_rated_restaurant.length}}</h3>
+        {{#each restaurant in location_details.best_rated_restaurant}}
+        <h1>{{restaurant.restaurant.name}}</h1>
+        <img class="img-responsive img-thumbnail"  src = '{{restaurant.restaurant.featured_image}}' style="width:400px; height:300px">
+        <h3>Cuisines: <small>{{restaurant.restaurant.cuisines}}</small></h3>
+
+        <address><strong>Location:</strong>{{restaurant.restaurant.location.address}}.</address>
+        {{#if restaurant.restaurant.has_online_delivery}}
+        <b style="color:dodgerblue">Has Online Delivery</b>
+        {{#if restaurant.restaurant.is_delivering_now}}
+        <b style="color:dodgerblue">and is Delivering Now </b>
+        {{else}}
+        <b style="color:dodgerblue">but not Delivering Now! perhaps later ;)</b>
+        {{/if}}
+        {{else}}
+        <b style="color:dodgerblue">Has No Online Delivery!Sorry about that:(</b>
+        {{/if}}
+        <br>
+        {{#if restaurant.restaurant.has_table_booking}}
+        <b style="color:dodgerblue">Has Table Booking</b>
+        {{else}}
+        <b style="color:dodgerblue">Has No Table Booking! Sorry about that:(</b>
+        {{/if}}<br>
+        <span class="badge">Votes:{{restaurant.restaurant.user_rating.votes}}</span>
+        <p>You spend about <pre>{{restaurant.restaurant.average_cost_for_two}} {{restaurant.restaurant.currency}} for an average of two persons</pre></p>
+        {{#if restaurant.restaurant.menu_url}}
+        <a href = '{{restaurant.restaurant.menu_url}}' style="color:orange">Checkout the Menu here</a><br>
+        {{/if}}
+        {{#if restaurant.restaurant.order_url}}
+        <a href = '{{restaurant.restaurant.order_url}}' style="color:orange">Ready to Order Online?</a><br>
+        {{/if}}
+        {{#if restaurant.restaurant.book_url}}
+        <a href = '{{restaurant.restaurant.book_url}}' style="color:orange">Planning a Party or a Meeting?</a>
+        {{/if}}
+        {{/each}}
+
+</div>
+</div>
+</div>
+{{/if}}
+</template>
+
+<template name="restaurant_details">
+  <br>
+
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <h3 class="page-header">details about a particular restaurant is displayed here</h3>
+        <a href = '{{restaurant_details.url}}'><h3>{{restaurant_details.name}}</h3></a>
+        <p class = 'lead'><strong>Cuisines Offered:</strong>{{restaurant_details.cuisines}}</p>
+        <p>On Average you spend about {{restaurant_details.average_cost_for_two}} {{restaurant_details.currency}} for {{restaurant_details.price_range}}</p>
+        <address><strong>Address:</strong>{{restaurant_details.location.address}},{{restaurant_details.location.locality}},{{restaurant_details.location.city}}</address>
+        Comments <span class="badge">{{restaurant_details.user_rating.votes}}</span><br> <!--anchor can be added -->
+        {{#if restaurant_details.has_online_delivery}}
+        <p style="color:tomato;">Has Online Delivery and Delivering Now</p>
+        {{else}}
+        <p style="color:tomato;">Has No Online Delivery</p>
+        {{/if}}
+        <a href = '{{restaurant_details.menu_url}}'>Click here to know the Menu for Today</a><br>
+        <img src = "{{restaurant_details.thumb}}">
+        <a href = '{{restaurant_details.photos_url}}'>Click here to see more photos</a>
+</div>
+</div>
+</div>
+</template>
+
+
+<template name="review_details">
+  <h3 class="page-header">details about a particular restaurant review is displayed here</h3>
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <ul >
+        {{#each review in review_details}}
+        <li>{{review.review.review_text}}</li>
+        <li>{{review.review.rating}}</li>
+        {{/each}}
+      </ul>
+</div>
+</div>
+</div>
+</template>
+
+<template name="main_search_details">
+  <h3 class="page-header">Search Details</h3>
+  <div class = 'row'>
+    <div class="col-md-12">
+      <div class ='search-res well'>
+        <dl >
+        {{#each search_details in main_search_details.restaurants}}
+        <dt>{{search_details.restaurant.name}}</dt>
+        <dd>{{search_details.restaurant.cuisines}}</dd>
+        <address>{{search_details.restaurant.location.address}}</address>
+        {{#if search_details.restaurant.has_online_delivery}}
+        <span>You can <strong>order online!</strong></span>
+        {{/if}}
+        {{/each}}
+      </dl>
+</div>
+</div>
+</div>
+</template>

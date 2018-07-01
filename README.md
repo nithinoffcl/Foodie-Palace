@@ -19,7 +19,15 @@ price range,reviews,options of online delivery and table booking,contact details
 ![2018-07-01-085416_1366x768_scrot](https://user-images.githubusercontent.com/32201172/42130839-f69b1a84-7d0d-11e8-823b-268ff72a651a.jpg)
 
 
+
 It uses Meteor built-in authentication system for user sign-in and login and also has the option of Oauth authentication.
+
+
+
+![2018-07-01-091409_1366x768_scrot](https://user-images.githubusercontent.com/32201172/42130866-5b271b96-7d0f-11e8-865b-6d0e14ba94f4.jpg)
+
+
+
 
 You can explore the menu from your street..
 
